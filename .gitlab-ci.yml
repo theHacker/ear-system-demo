@@ -1,0 +1,19 @@
+workflow:
+  auto_cancel:
+    on_new_commit: conservative
+
+stages:
+  - test
+
+test-backend:
+  image: gradle:9.8.2-jdk17-alpine
+  stage: test
+  interruptible: true
+  script: cd backend && gradle check
+  artifacts:
+    when: always
+    paths:
+      - backend/build/reports/
+      - backend/build/test-results/
+    reports:
+      junit: backend/build/test-results/test/TEST-*.xml
