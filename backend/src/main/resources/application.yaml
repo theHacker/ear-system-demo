@@ -1,3 +1,11 @@
 spring:
   application:
     name: ear-system-demo
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:in-memory-db
+    username: sa
+  h2:
+    console: # TODO remove for production; remember the Spring Boot starter (Boot moved H2ConsoleAutoConfiguration to its own module)
+      enabled: true
+      path: /h2-console
