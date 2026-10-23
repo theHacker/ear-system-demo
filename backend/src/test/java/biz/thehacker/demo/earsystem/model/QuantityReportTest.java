@@ -1,11 +1,11 @@
-package biz.thehacker.demo.earsystem;
+package biz.thehacker.demo.earsystem.model;
 
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;
 
-import static biz.thehacker.demo.earsystem.Unit.*;
+import static biz.thehacker.demo.earsystem.model.Unit.*;
 import static java.time.Month.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;

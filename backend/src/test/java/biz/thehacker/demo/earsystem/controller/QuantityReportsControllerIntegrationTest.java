@@ -1,4 +1,4 @@
-package biz.thehacker.demo.earsystem;
+package biz.thehacker.demo.earsystem.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

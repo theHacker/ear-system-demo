@@ -1,4 +1,4 @@
-package biz.thehacker.demo.earsystem;
+package biz.thehacker.demo.earsystem.model;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;

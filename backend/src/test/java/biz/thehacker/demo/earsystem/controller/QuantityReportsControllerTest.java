@@ -1,5 +1,7 @@
-package biz.thehacker.demo.earsystem;
+package biz.thehacker.demo.earsystem.controller;
 
+import biz.thehacker.demo.earsystem.model.QuantityReport;
+import biz.thehacker.demo.earsystem.repository.QuantityReportsRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -10,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.YearMonth;
 import java.util.List;
 
-import static biz.thehacker.demo.earsystem.Unit.*;
+import static biz.thehacker.demo.earsystem.model.Unit.*;
 import static java.time.Month.*;
 import static java.time.Month.APRIL;
 import static org.hamcrest.Matchers.hasSize;

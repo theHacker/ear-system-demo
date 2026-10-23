@@ -1,5 +1,7 @@
-package biz.thehacker.demo.earsystem;
+package biz.thehacker.demo.earsystem.repository;
 
+import biz.thehacker.demo.earsystem.model.QuantityReport;
+import biz.thehacker.demo.earsystem.model.Unit;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 

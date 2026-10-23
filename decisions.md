@@ -26,3 +26,14 @@
 - Future
   - In case of a switch to Kotlin, jOOQ is prepared: can generate Kotlin classes,
     Kotlin's trailing lambda will make the code even easier to read and write.
+
+## Package Structure
+
+- Subpackages per-layer, i.&nbsp;e. `controller`, `model`, `repository`
+- Reasons
+  - We just have a demo application, so the layers are easier to see
+- Future
+  - If the application would grow, the approach "put together what belongs together" would make more sense.
+    In that case, all classes belonging to quantity reports would go in a subpackage `quantity`.
+  - We see that more correct solution when comparing the number of imports
+    (introduced by this commit creating the subpackages).
