@@ -9,3 +9,9 @@ spring:
     console: # TODO remove for production; remember the Spring Boot starter (Boot moved H2ConsoleAutoConfiguration to its own module)
       enabled: true
       path: /h2-console
+logging:
+  level:
+    # Disable annoying jOOQ logo in the logs (see DefaultRenderContext)
+    #    Sorry guys, it's ok to log an INFO line (like Flyway does),
+    #    but not spam 20 lines of ASCII Art into the logs :-/
+    org.jooq.Constants: WARN

@@ -15,7 +15,7 @@ class QuantityReportTest {
     @Test
     void construction() {
         assertDoesNotThrow(() -> {
-            new QuantityReport(new BigDecimal("123"), STUECK, YearMonth.of(2012, APRIL), 12345, 565676, true);
+            new QuantityReport(new BigDecimal("123"), PIECE, YearMonth.of(2012, APRIL), 12345, 565676, true);
         });
     }
 
@@ -35,32 +35,32 @@ class QuantityReportTest {
     }
 
     @Test
-    void validUnitVsDecimalPlaces_stueck() {
+    void validUnitVsDecimalPlaces_piece() {
         assertDoesNotThrow(() -> {
-            new QuantityReport(new BigDecimal("123456"), STUECK, YearMonth.of(2015, JULY), 654654, 99, false);
-            new QuantityReport(new BigDecimal("123456.0"), STUECK, YearMonth.of(2015, JULY), 654654, 99, false);
+            new QuantityReport(new BigDecimal("123456"), PIECE, YearMonth.of(2015, JULY), 654654, 99, false);
+            new QuantityReport(new BigDecimal("123456.0"), PIECE, YearMonth.of(2015, JULY), 654654, 99, false);
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new QuantityReport(new BigDecimal("123456.1"), STUECK, YearMonth.of(2015, JULY), 654654, 99, false);
+            new QuantityReport(new BigDecimal("123456.1"), PIECE, YearMonth.of(2015, JULY), 654654, 99, false);
         });
     }
 
     @Test
-    void validUnitVsDecimalPlaces_tonnen() {
+    void validUnitVsDecimalPlaces_ton() {
         assertDoesNotThrow(() -> {
-            new QuantityReport(new BigDecimal("123456"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.0"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.1"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.12"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.123"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.1234"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.12345"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
-            new QuantityReport(new BigDecimal("123456.123456"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.0"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.1"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.12"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.123"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.1234"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.12345"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.123456"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
         });
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new QuantityReport(new BigDecimal("123456.1234567"), TONNEN, YearMonth.of(2012, JULY), 5555, 11, false);
+            new QuantityReport(new BigDecimal("123456.1234567"), TON, YearMonth.of(2012, JULY), 5555, 11, false);
         });
     }
 }
