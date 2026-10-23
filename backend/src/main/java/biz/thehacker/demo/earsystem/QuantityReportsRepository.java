@@ -17,7 +17,7 @@ public class QuantityReportsRepository {
         this.create = create;
     }
 
-    /** Returns all quantity reports order by year and month */
+    /** Returns all quantity reports ordered by year and month */
     public List<QuantityReport> queryAll() {
         return create
                 .select(
