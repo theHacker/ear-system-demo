@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.time.YearMonth;
 
 public record QuantityReport(
-        BigDecimal amount, // TODO check later, likely this must be a BigDecimal to not loose precision
+        BigDecimal amount,
         Unit unit,
         YearMonth yearMonth,
-        int deviceNumber, // TODO clarify: likely a number-like string with fixed/limited number of digits
-        int registrationNumber, // TODO clarify: likely a number-like string with fixed/limited number of digits
+        int deviceTypeNumber, // see https://test.ear-system.de/ear-soap/v2/doc/xml_ear_Geraeteart.html
+        int registrationNumber, // "WEEE-Reg.-Nr. DE", see https://test.ear-system.de/ear-soap/v2/doc/service_ear_MitteilungsService.html
         boolean declarationOfTruth
 ) {
     public QuantityReport {
@@ -17,7 +17,7 @@ public record QuantityReport(
         }
 
         int maxDecimalPlaces = unit.getMaxDecimalPlaces();
-        int digits = amount.stripTrailingZeros().scale(); // TODO check if correct
+        int digits = amount.stripTrailingZeros().scale();
 
         if (digits > maxDecimalPlaces) {
             throw new IllegalArgumentException(

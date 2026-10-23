@@ -11,3 +11,18 @@
 - Future
   - H2 works well for production, but does not scale well. For demo purposes it suffices.
     Later, we might move to PostgreSQL or a similar powerful database.
+
+## Persistence Framework
+
+- We use jOOQ
+- Reasons
+  - jOOQ enables developers to write special queries everytime,
+    forcing them to think want field really are need, and what tables really need to be `JOIN`ed
+  - jOOQ and its SQL-like API is easy to use, and fast to type with auto-completion
+  - jOOQ with code generation eliminate typos and provide dev-experience like auto-complete
+  - No, not Hibernate! [The classic: How Hibernate almost…](https://medium.com/@ggajos/how-hibernate-almost-ruined-16f31ba7d381)
+    There is no reason to introduce that complexity.
+  - (jOOQ even provides paid Enterprise features, if needed)
+- Future
+  - In case of a switch to Kotlin, jOOQ is prepared: can generate Kotlin classes,
+    Kotlin's trailing lambda will make the code even easier to read and write.

@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "4.1.1"
 	id("io.spring.dependency-management") version "1.1.7"
+	id("org.jooq.jooq-codegen-gradle") version "3.21.9"
 }
 
 group = "biz.thehacker"
@@ -9,7 +10,35 @@ version = "0.0.1-SNAPSHOT"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+jooq {
+	configuration {
+		generator {
+			name = "org.jooq.codegen.JavaGenerator"
+
+			database {
+				name = "org.jooq.meta.extensions.ddl.DDLDatabase"
+				properties {
+					property {
+						key = "scripts"
+						value = "src/main/resources/schema.sql"
+					}
+
+					property {
+						key = "defaultNameCase"
+						value = "upper"
+					}
+				}
+			}
+
+			target {
+				packageName = "biz.thehacker.demo.earsystem"
+				directory = "build/generated-sources/jooq"
+			}
+		}
 	}
 }
 
@@ -26,6 +55,8 @@ dependencies {
 	// Persistence and database
 
 	implementation("org.springframework.boot:spring-boot-starter-jooq")
+	jooqCodegen("org.jooq:jooq-meta-extensions:3.21.9")
+
 	implementation("org.springframework.boot:spring-boot-h2console") // TODO remove in production
 	runtimeOnly("com.h2database:h2")
 
@@ -35,6 +66,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-webservices-test")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+tasks.named<JavaCompile>("compileJava") {
+	dependsOn(":jooqCodegen")
 }
 
 tasks.withType<Test> {
