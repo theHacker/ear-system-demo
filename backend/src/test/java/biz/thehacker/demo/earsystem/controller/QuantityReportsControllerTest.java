@@ -2,6 +2,7 @@ package biz.thehacker.demo.earsystem.controller;
 
 import biz.thehacker.demo.earsystem.model.QuantityReport;
 import biz.thehacker.demo.earsystem.repository.QuantityReportsRepository;
+import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -15,10 +16,11 @@ import java.util.List;
 import static biz.thehacker.demo.earsystem.model.Unit.*;
 import static java.time.Month.*;
 import static java.time.Month.APRIL;
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -55,5 +57,37 @@ class QuantityReportsControllerTest {
                         content().contentType(MediaType.APPLICATION_JSON),
                         jsonPath("$", hasSize(4))
                 );
+    }
+
+    @Test
+    void addQuantityReport_persists() throws Exception {
+        @Language("json")
+        String jsonRequested = """
+            {
+              "amount": "99.4",
+              "unit": "TON",
+              "yearMonth": "2012-04",
+              "deviceTypeNumber": 123456,
+              "registrationNumber": 987654,
+              "declarationOfTruth": true
+            }
+        """;
+
+        mockMvc
+                .perform(
+                        post("/quantityReports")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonRequested)
+                )
+                .andExpectAll(
+                        status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$.success", is(true)),
+                        jsonPath("$.errorMessage").doesNotExist()
+                );
+
+        verify(repositoryMock).add(new QuantityReport(new BigDecimal("99.4"), TON, YearMonth.of(2012, APRIL), 123456, 987654, true));
+        verifyNoMoreInteractions(repositoryMock); // TODO check Strictness.STRICT_STUBS is enabled
     }
 }

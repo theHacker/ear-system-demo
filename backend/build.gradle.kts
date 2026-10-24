@@ -66,6 +66,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-webservices-test")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// IDE insight
+
+	implementation("org.jetbrains:annotations:26.1.0")
 }
 
 tasks.named<JavaCompile>("compileJava") {
