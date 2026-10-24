@@ -71,7 +71,7 @@ const tableColumns: TableColumn<QuantityReport>[] = [
     },
 ];
 
-function formatAmount(amount: integer, unit: 'KILOGRAM' | 'PIECE' | 'TON'): string {
+function formatAmount(amount: number, unit: 'KILOGRAM' | 'PIECE' | 'TON'): string {
     let suffix = '';
     switch (unit) {
         case 'KILOGRAM': suffix = 'kg'; break;
@@ -107,7 +107,7 @@ async function loadQuantityReports() {
     try {
         quantityReports.value = await $fetch('/api/quantityReports');
     } catch (error) {
-        errorMessage.value = error;
+        errorMessage.value = error instanceof Error ? error.message : String(error);
     } finally {
         loading.value = false;
     }
@@ -127,7 +127,7 @@ async function addQuantityReport() {
             } satisfies QuantityReport,
         });
     } catch (error) {
-        errorMessage.value = error;
+        errorMessage.value = error instanceof Error ? error.message : String(error);
     }
 }
 </script>
