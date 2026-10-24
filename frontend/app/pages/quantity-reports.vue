@@ -3,6 +3,15 @@
         <UContainer class="my-4">
             <h1 class="text-4xl font-bold py-2">Quantity Reports</h1>
 
+            <UAlert
+                v-if="errorMessage !== null"
+                color="error"
+                variant="solid"
+                title="Error"
+                :description="errorMessage"
+                icon="lucide:triangle-alert"
+            />
+
             <UTable
                 :loading="loading"
                 :columns="tableColumns"
@@ -85,6 +94,7 @@ function formatYearMonth(yearMonth: string): string {
 }
 
 const loading = ref<boolean>(false);
+const errorMessage = ref<string | null>(null);
 const quantityReports = ref<QuantityReport[]>([]);
 
 onMounted(() => {
@@ -97,8 +107,7 @@ async function loadQuantityReports() {
     try {
         quantityReports.value = await $fetch('/api/quantityReports');
     } catch (error) {
-        console.error('Request failed:', error);
-        // TODO error management
+        errorMessage.value = error;
     } finally {
         loading.value = false;
     }
@@ -118,8 +127,7 @@ async function addQuantityReport() {
             } satisfies QuantityReport,
         });
     } catch (error) {
-        console.error('Request failed:', error);
-        // TODO error management
+        errorMessage.value = error;
     }
 }
 </script>
