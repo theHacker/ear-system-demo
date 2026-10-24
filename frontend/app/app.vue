@@ -1,4 +1,36 @@
-<script setup>
+<template>
+    <UApp>
+        <UHeader title="ear system">
+            <template #default>
+                <UNavigationMenu :items="navigationMenuItems" />
+            </template>
+
+            <template #body>
+                <UNavigationMenu :items="navigationMenuItems" orientation="vertical" />
+            </template>
+
+            <template #right>
+                <UColorModeButton />
+            </template>
+        </UHeader>
+
+        <UMain>
+            <NuxtPage />
+        </UMain>
+
+        <USeparator />
+
+        <UFooter>
+            <p class="text-sm text-muted">
+                Built with Nuxt UI
+            </p>
+        </UFooter>
+    </UApp>
+</template>
+
+<script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui';
+
 useHead({
     meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
@@ -14,32 +46,20 @@ useHead({
 const title = 'ear system – demo application';
 const description = 'A demo application implementing reporting quantities';
 
+const navigationMenuItems = ref<NavigationMenuItem[]>([
+    {
+        label: 'Home',
+        to: '/',
+    },
+    {
+        label: 'Quantity reports',
+        description: 'Show all quantity reports.',
+        to: '/quantity-reports',
+    }
+]);
+
 useSeoMeta({
     title,
     description,
 });
 </script>
-
-<template>
-    <UApp>
-        <UHeader :title="title">
-            <template #right>
-                <UColorModeButton />
-            </template>
-        </UHeader>
-
-        <UMain>
-            <NuxtPage />
-        </UMain>
-
-        <USeparator icon="i-simple-icons-nuxtdotjs" />
-
-        <UFooter>
-            <template #left>
-                <p class="text-sm text-muted">
-                    Built with Nuxt UI • © {{ new Date().getFullYear() }}
-                </p>
-            </template>
-        </UFooter>
-    </UApp>
-</template>
