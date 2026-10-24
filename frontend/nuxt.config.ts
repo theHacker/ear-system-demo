@@ -12,7 +12,8 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
+    '/api/**': { proxy: 'http://localhost:8080/**' },
   },
 
   compatibilityDate: '2026-06-30',
