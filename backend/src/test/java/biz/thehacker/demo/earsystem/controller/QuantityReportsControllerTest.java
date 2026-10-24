@@ -3,8 +3,11 @@ package biz.thehacker.demo.earsystem.controller;
 import biz.thehacker.demo.earsystem.model.QuantityReport;
 import biz.thehacker.demo.earsystem.repository.QuantityReportsRepository;
 import org.intellij.lang.annotations.Language;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoSession;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -15,10 +18,10 @@ import java.util.List;
 
 import static biz.thehacker.demo.earsystem.model.Unit.*;
 import static java.time.Month.*;
-import static java.time.Month.APRIL;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
+import static org.mockito.quality.Strictness.STRICT_STUBS;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -26,17 +29,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class QuantityReportsControllerTest {
 
+    private MockitoSession session;
     private MockMvc mockMvc;
 
     private QuantityReportsRepository repositoryMock;
 
     @BeforeEach
-    void setupMockMvc() {
+    void setUp() {
+        session = Mockito.mockitoSession()
+                .strictness(STRICT_STUBS)
+                .startMocking();
+
         repositoryMock = mock();
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(new QuantityReportsController(repositoryMock))
                 .build();
+    }
+
+    @AfterEach
+    void tearDown() {
+        session.finishMocking();
     }
 
     @Test
@@ -88,6 +101,6 @@ class QuantityReportsControllerTest {
                 );
 
         verify(repositoryMock).add(new QuantityReport(new BigDecimal("99.4"), TON, YearMonth.of(2012, APRIL), 123456, 987654, true));
-        verifyNoMoreInteractions(repositoryMock); // TODO check Strictness.STRICT_STUBS is enabled
+        verifyNoMoreInteractions(repositoryMock);
     }
 }
