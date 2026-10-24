@@ -2,11 +2,16 @@
     <UApp>
         <UHeader title="ear system">
             <template #default>
-                <UNavigationMenu :items="navigationMenuItems" />
+                <UNavigationMenu
+                    :items="navigationMenuItems"
+                />
             </template>
 
             <template #body>
-                <UNavigationMenu :items="navigationMenuItems" orientation="vertical" />
+                <UNavigationMenu
+                    :items="navigationMenuItems"
+                    orientation="vertical"
+                />
             </template>
 
             <template #right>
@@ -55,7 +60,7 @@ const navigationMenuItems = ref<NavigationMenuItem[]>([
         label: 'Quantity reports',
         description: 'Show all quantity reports.',
         to: '/quantity-reports',
-    }
+    },
 ]);
 
 useSeoMeta({
