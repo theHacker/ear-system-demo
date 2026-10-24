@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <UContainer class="my-4">
-      <UButton @click="sendRequest">
-        Send demo request to add a quantity report
-      </UButton>
-    </UContainer>
+    <div>
+        <UContainer class="my-4">
+            <UButton @click="sendRequest">
+                Send demo request to add a quantity report
+            </UButton>
+        </UContainer>
 
-    <UContainer class="my-4">
-      Nothing to see here.
-    </UContainer>
-  </div>
+        <UContainer class="my-4">
+            Nothing to see here.
+        </UContainer>
+    </div>
 </template>
 
 <script setup lang="ts">
