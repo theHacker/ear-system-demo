@@ -1,8 +1,8 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'green',
+      primary: 'ear-portal',
       neutral: 'slate'
     }
   }
-})
+});

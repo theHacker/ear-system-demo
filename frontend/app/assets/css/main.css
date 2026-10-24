@@ -4,15 +4,18 @@
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* https://www.tints.dev/palette/v1:ZWFyLXBvcnRhbHwxNjVhYjN8NzAwfHB8MHwwfDB8MTAwfGE
+   * taken from #165ab3, first gradient color of the "ear-Portal" button of https://www.stiftung-ear.de/
+   */
+  --color-ear-portal-50: oklch(0.965 0.015 273.9);
+  --color-ear-portal-100: oklch(0.923 0.035 271.59);
+  --color-ear-portal-200: oklch(0.856 0.068 271.09);
+  --color-ear-portal-300: oklch(0.779 0.105 267.75);
+  --color-ear-portal-400: oklch(0.703 0.146 264.03);
+  --color-ear-portal-500: oklch(0.634 0.186 259.49);
+  --color-ear-portal-600: oklch(0.556 0.182 257.6);
+  --color-ear-portal-700: oklch(0.48 0.156 257.48);
+  --color-ear-portal-800: oklch(0.365 0.118 257.48);
+  --color-ear-portal-900: oklch(0.253 0.081 257.05);
+  --color-ear-portal-950: oklch(0.201 0.065 257.57);
 }
