@@ -6,6 +6,10 @@ import { getDefaultAttributes } from 'eslint-plugin-better-tailwindcss/api/defau
 export default withNuxt(
     betterTailwindcss.configs['correctness-error'],
     {
+        rules: {
+            // we decide case-by-case it a trailing comma makes sense or not
+            '@stylistic/comma-dangle': 'off',
+        },
         settings: {
             'better-tailwindcss': {
                 entryPoint: 'app/assets/css/main.css',
