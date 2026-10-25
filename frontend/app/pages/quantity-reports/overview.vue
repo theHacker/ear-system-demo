@@ -35,15 +35,8 @@
 
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui';
-
-type QuantityReport = {
-    amount: number;
-    unit: 'KILOGRAM' | 'PIECE' | 'TON';
-    yearMonth: string;
-    deviceTypeNumber: number;
-    registrationNumber: number;
-    declarationOfTruth: boolean;
-};
+import type { QuantityReport } from '~/utils/quantity-reports.ts';
+import { formatAmount, formatYearMonth } from '~/utils/quantity-reports.ts';
 
 const tableColumns: TableColumn<QuantityReport>[] = [
     {
@@ -74,29 +67,6 @@ const tableColumns: TableColumn<QuantityReport>[] = [
         cell: ({ getValue }) => getValue() ? '✅️' : '❌️'
     },
 ];
-
-const unitSuffixes = {
-    KILOGRAM: 'kg',
-    PIECE: '',
-    TON: 't'
-};
-
-function formatAmount(amount: number, unit: 'KILOGRAM' | 'PIECE' | 'TON'): string {
-    const suffix = unitSuffixes[unit];
-
-    return new Intl.NumberFormat('en', { useGrouping: true }).format(amount) + suffix;
-}
-
-function formatYearMonth(yearMonth: string): string {
-    const year = parseInt(yearMonth.substring(0, 4));
-    const month = parseInt(yearMonth.substring(5));
-
-    return new Intl.DateTimeFormat('en', {
-        month: 'long',
-        year: 'numeric',
-        timeZone: 'UTC'
-    }).format(new Date(Date.UTC(year, month - 1, 1)));
-}
 
 const loading = ref<boolean>(false);
 const errorMessage = ref<string | null>(null);
