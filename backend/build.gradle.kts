@@ -3,6 +3,7 @@ plugins {
 	id("org.springframework.boot") version "4.1.1"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.jooq.jooq-codegen-gradle") version "3.21.9"
+	id("com.github.bjornvester.wsdl2java") version "2.0.4"
 }
 
 group = "biz.thehacker"
@@ -42,6 +43,17 @@ jooq {
 	}
 }
 
+wsdl2java {
+	wsdlDir.set(layout.projectDirectory.dir("src/main/resources"))
+	includes.set(
+		listOf(
+			"wsdl/MitteilungsService.wsdl"
+		)
+	)
+	packageName.set("biz.thehacker.demo.earsystem.soap.mitteilung")
+	cxfVersion.set("4.2.3")
+}
+
 repositories {
 	mavenCentral()
 }
@@ -50,7 +62,11 @@ dependencies {
 	// Web
 
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+
+	// Web Services / SOAP
+
 	implementation("org.springframework.boot:spring-boot-starter-webservices")
+	implementation("com.sun.xml.ws:jaxws-rt:4.0.5")
 
 	// Persistence and database
 
@@ -74,6 +90,7 @@ dependencies {
 
 tasks.named<JavaCompile>("compileJava") {
 	dependsOn(":jooqCodegen")
+	dependsOn(":wsdl2java")
 }
 
 tasks.withType<Test> {

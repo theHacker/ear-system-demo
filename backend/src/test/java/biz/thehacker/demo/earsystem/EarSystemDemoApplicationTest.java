@@ -1,5 +1,6 @@
 package biz.thehacker.demo.earsystem;
 
+import biz.thehacker.demo.earsystem.soap.mitteilung.MitteilungsServicePort;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,5 +23,10 @@ class EarSystemDemoApplicationTest {
     @Test
     void dataSourceIsAvailable() {
         assertThat(applicationContext, hasBean(DataSource.class));
+    }
+
+    @Test
+    void soapWebServiceIsAvailable() {
+        assertThat(applicationContext, hasBean(MitteilungsServicePort.class));
     }
 }

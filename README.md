@@ -41,3 +41,12 @@ Run tests with `bun run test`.
 
 Usually, the IDE or `:bootRun` task will do that for you. If you need to manually trigger that,
 execute Gradle task `:jooqCodegen`.
+
+### Backend: Import/Update WSDL
+
+```shell
+wget -O backend/src/main/resources/wsdl/MitteilungsService.wsdl "https://test.ear-system.de/ear-soap/v2/MitteilungsService?wsdl"
+```
+
+Since the initial file has a horrible formatting,
+you should auto-format the file by IntelliJ before committing the WSDL into VCS.
