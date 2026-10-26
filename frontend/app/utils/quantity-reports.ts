@@ -7,7 +7,11 @@ export type QuantityReport = {
     declarationOfTruth: boolean;
 };
 
-const unitSuffixes = {
+/**
+ * Allowed unit suffixes for amounts.
+ * Key is the technical enum value, value is the human-readable suffix.
+ */
+export const unitSuffixes = {
     KILOGRAM: 'kg',
     PIECE: '',
     TON: 't'
@@ -23,6 +27,15 @@ export function formatAmount(amount: number, unit: 'KILOGRAM' | 'PIECE' | 'TON')
 }
 
 /**
+ * Formats a month number (1-12) into a human-readable representation like `April`.
+ */
+export function formatMonth(month: number): string {
+    return new Intl.DateTimeFormat('en', {
+        month: 'long'
+    }).format(new Date(Date.UTC(2000, month - 1, 1)));
+}
+
+/**
  * Formats a `yyyy-mm` string into a human-readable representation like `April 2012`.
  */
 export function formatYearMonth(yearMonth: string): string {
@@ -34,4 +47,11 @@ export function formatYearMonth(yearMonth: string): string {
         year: 'numeric',
         timeZone: 'UTC'
     }).format(new Date(Date.UTC(year, month - 1, 1)));
+}
+
+/**
+ * Constructs a `yyyy-mm` string from year and month as integers.
+ */
+export function buildYearMonth(year: number, month: number): string {
+    return String(year) + '-' + String(month).padStart(2, '0');
 }

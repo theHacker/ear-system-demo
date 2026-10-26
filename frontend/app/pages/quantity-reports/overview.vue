@@ -20,16 +20,6 @@
                 :data="quantityReports"
             />
         </UContainer>
-
-        <UContainer class="my-8">
-            <h2 class="text-xl font-bold py-2">
-                Add demo quantity report
-            </h2>
-
-            <UButton @click="addQuantityReport">
-                Send demo request to add a quantity report
-            </UButton>
-        </UContainer>
     </div>
 </template>
 
@@ -85,24 +75,6 @@ async function loadQuantityReports() {
         errorMessage.value = error instanceof Error ? error.message : String(error);
     } finally {
         loading.value = false;
-    }
-}
-
-async function addQuantityReport() {
-    try {
-        await $fetch('/api/quantityReports', {
-            method: 'POST',
-            body: {
-                amount: 99.4,
-                unit: 'TON',
-                yearMonth: '2012-04',
-                deviceTypeNumber: 123456,
-                registrationNumber: 987654,
-                declarationOfTruth: true
-            } satisfies QuantityReport
-        });
-    } catch (error) {
-        errorMessage.value = error instanceof Error ? error.message : String(error);
     }
 }
 </script>
