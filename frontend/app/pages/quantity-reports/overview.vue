@@ -20,30 +20,13 @@
                 :data="quantityReports"
             />
         </UContainer>
-
-        <UContainer class="my-8">
-            <h2 class="text-xl font-bold py-2">
-                Add demo quantity report
-            </h2>
-
-            <UButton @click="addQuantityReport">
-                Send demo request to add a quantity report
-            </UButton>
-        </UContainer>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui';
-
-type QuantityReport = {
-    amount: number;
-    unit: 'KILOGRAM' | 'PIECE' | 'TON';
-    yearMonth: string;
-    deviceTypeNumber: number;
-    registrationNumber: number;
-    declarationOfTruth: boolean;
-};
+import type { QuantityReport } from '~/utils/quantity-reports.ts';
+import { formatAmount, formatYearMonth } from '~/utils/quantity-reports.ts';
 
 const tableColumns: TableColumn<QuantityReport>[] = [
     {
@@ -75,29 +58,6 @@ const tableColumns: TableColumn<QuantityReport>[] = [
     },
 ];
 
-const unitSuffixes = {
-    KILOGRAM: 'kg',
-    PIECE: '',
-    TON: 't'
-};
-
-function formatAmount(amount: number, unit: 'KILOGRAM' | 'PIECE' | 'TON'): string {
-    const suffix = unitSuffixes[unit];
-
-    return new Intl.NumberFormat('en', { useGrouping: true }).format(amount) + suffix;
-}
-
-function formatYearMonth(yearMonth: string): string {
-    const year = parseInt(yearMonth.substring(0, 4));
-    const month = parseInt(yearMonth.substring(5));
-
-    return new Intl.DateTimeFormat('en', {
-        month: 'long',
-        year: 'numeric',
-        timeZone: 'UTC'
-    }).format(new Date(Date.UTC(year, month - 1, 1)));
-}
-
 const loading = ref<boolean>(false);
 const errorMessage = ref<string | null>(null);
 const quantityReports = ref<QuantityReport[]>([]);
@@ -115,24 +75,6 @@ async function loadQuantityReports() {
         errorMessage.value = error instanceof Error ? error.message : String(error);
     } finally {
         loading.value = false;
-    }
-}
-
-async function addQuantityReport() {
-    try {
-        await $fetch('/api/quantityReports', {
-            method: 'POST',
-            body: {
-                amount: 99.4,
-                unit: 'TON',
-                yearMonth: '2012-04',
-                deviceTypeNumber: 123456,
-                registrationNumber: 987654,
-                declarationOfTruth: true
-            } satisfies QuantityReport
-        });
-    } catch (error) {
-        errorMessage.value = error instanceof Error ? error.message : String(error);
     }
 }
 </script>

@@ -37,3 +37,18 @@
     In that case, all classes belonging to quantity reports would go in a subpackage `quantity`.
   - We see that more correct solution when comparing the number of imports
     (introduced by this commit creating the subpackages).
+
+## Frontend Validation Framework
+
+- We did not check in depth the many different choices.
+- Nuxt UI's `Form` component works with
+  > […] any validation library supporting Standard Schema such as
+  > Valibot, Zod, Regle, Yup, Joi or Superstruct or your own validation logic.
+- We choose Valibot
+- Reasons
+  - According to a ChatGPT comparision Valibot and Zod are the most TypeScript compatible ones
+  - I have had bad experiences with Zod before (extensive type usage makes issues).
+    Likely, a misuse, but a good reason to try something different.
+- Future
+  - Though the declarative syntax is nice, it add a lot of complexity for some simple `if` statements.
+  - We might want to remove that lib and provide custom validation.

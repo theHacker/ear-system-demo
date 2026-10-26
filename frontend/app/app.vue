@@ -59,7 +59,12 @@ const navigationMenuItems = ref<NavigationMenuItem[]>([
     {
         label: 'Quantity reports',
         description: 'Show all quantity reports.',
-        to: '/quantity-reports',
+        to: '/quantity-reports/overview',
+    },
+    {
+        label: 'Add quantity report',
+        description: 'Adds a new quantity report.',
+        to: '/quantity-reports/add',
     },
 ]);
 
