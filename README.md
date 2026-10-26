@@ -21,6 +21,20 @@ Run with `./gradlew bootRun`.
 
 Run with `bun dev`.
 
+## Testing
+
+### Backend
+
+Run tests with `./gradlew check`.
+
+### Frontend
+
+Run tests with `bun run test`.
+
+> [!NOTE]
+> `bun test` also works, but it will use `bun`'s runner, not `vitest`.
+> You can use it, too, but source of truth is `bun run test`).
+
 ## Special Instructions
 
 ### Backend: Generate jOOQ classes
