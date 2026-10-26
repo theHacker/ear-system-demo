@@ -32,6 +32,12 @@ test-backend:
     reports:
       junit: backend/build/test-results/test/TEST-*.xml
 
+test-frontend:
+  image: oven/bun:1.3.5
+  stage: test
+  interruptible: true
+  script: cd frontend && bun i && bun run test
+
 build-frontend:
   image: oven/bun:1.3.5
   stage: build
