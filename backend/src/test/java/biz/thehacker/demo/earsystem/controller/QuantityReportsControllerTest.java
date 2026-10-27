@@ -2,7 +2,7 @@ package biz.thehacker.demo.earsystem.controller;
 
 import biz.thehacker.demo.earsystem.model.QuantityReport;
 import biz.thehacker.demo.earsystem.repository.QuantityReportsRepository;
-import biz.thehacker.demo.earsystem.soap.mitteilung.MitteilungsServicePort;
+import biz.thehacker.demo.earsystem.service.QuantityReportsService;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +34,7 @@ class QuantityReportsControllerTest {
     private MockMvc mockMvc;
 
     private QuantityReportsRepository repositoryMock;
-    private MitteilungsServicePort mitteilungsServicePortMock;
+    private QuantityReportsService serviceMock;
 
     @BeforeEach
     void setUp() {
@@ -43,10 +43,10 @@ class QuantityReportsControllerTest {
                 .startMocking();
 
         repositoryMock = mock();
-        mitteilungsServicePortMock = mock();
+        serviceMock = mock();
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new QuantityReportsController(repositoryMock, mitteilungsServicePortMock))
+                .standaloneSetup(new QuantityReportsController(repositoryMock, serviceMock))
                 .build();
     }
 
@@ -76,7 +76,7 @@ class QuantityReportsControllerTest {
     }
 
     @Test
-    void addQuantityReport_persistsAndContactsWebService() throws Exception {
+    void addQuantityReport_persistsAndContactsService() throws Exception {
         @Language("json")
         String jsonRequested = """
             {
@@ -103,10 +103,13 @@ class QuantityReportsControllerTest {
                         jsonPath("$.errorMessage").doesNotExist()
                 );
 
-        verify(repositoryMock).add(new QuantityReport(new BigDecimal("99.4"), TON, YearMonth.of(2012, APRIL), 123456, 987654, true));
+        QuantityReport expectedQuantityReport =
+                new QuantityReport(new BigDecimal("99.4"), TON, YearMonth.of(2012, APRIL), 123456, 987654, true);
+
+        verify(repositoryMock).add(expectedQuantityReport);
         verifyNoMoreInteractions(repositoryMock);
 
-        verify(mitteilungsServicePortMock).submitIstInput(new BigDecimal("99.4"), 3, 2012, 4, 123456, 987654, true);
-        verifyNoMoreInteractions(mitteilungsServicePortMock);
+        verify(serviceMock).submitNewReport(expectedQuantityReport);
+        verifyNoMoreInteractions(serviceMock);
     }
 }

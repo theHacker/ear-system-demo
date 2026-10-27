@@ -38,9 +38,9 @@
   - We see that more correct solution when comparing the number of imports
     (introduced by this commit creating the subpackages).
 
-## No Service Layer
+## No Fixed Service Layer
 
-- There is no service layer (for now)
+- There is no fixed service layer
 - Reasons
   - Rather than fixed layers (just to adhere to some architecture chart), we only introduce layers as needed.
   - The controller has little work to do.
@@ -50,7 +50,7 @@
 - Future
   - If we see, the controller code gets more, or there are reason why we want to pull out a piece to test separately,
     we can introduce such a layer at a later point in time.
-  - A service layer can be introduced on certain points only. E.&nbsp;g. proxying the SOAP web service only.
+  - A service layer can be introduced on certain points only. -> like we did proxying the SOAP web service
 
 ## Frontend Validation Framework
 
