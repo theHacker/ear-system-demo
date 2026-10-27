@@ -33,11 +33,17 @@ public class SoapClientConfig {
 
         BindingProvider bindingProvider = (BindingProvider) port;
         Map<String, Object> requestContext = bindingProvider.getRequestContext();
-        requestContext.put(ENDPOINT_ADDRESS_PROPERTY, soapConfigProperties.getEndpointUrl());
-        requestContext.put(USERNAME_PROPERTY, soapConfigProperties.getUsername());
-        requestContext.put(PASSWORD_PROPERTY, soapConfigProperties.getPassword());
+        if (soapConfigProperties.getEndpointUrl() != null) {
+            requestContext.put(ENDPOINT_ADDRESS_PROPERTY, soapConfigProperties.getEndpointUrl());
+        }
+        if (soapConfigProperties.getUsername() != null) {
+            requestContext.put(USERNAME_PROPERTY, soapConfigProperties.getUsername());
+        }
+        if (soapConfigProperties.getPassword() != null) {
+            requestContext.put(PASSWORD_PROPERTY, soapConfigProperties.getPassword());
+        }
 
-        log.info("Configured SOAP MitteilungsService at {}", soapConfigProperties.getEndpointUrl());
+        log.info("Configured SOAP MitteilungsService at {}", requestContext.get(ENDPOINT_ADDRESS_PROPERTY));
 
         return port;
     }

@@ -94,5 +94,7 @@ tasks.named<JavaCompile>("compileJava") {
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+	useJUnitPlatform {
+		excludeTags("manual")
+	}
 }

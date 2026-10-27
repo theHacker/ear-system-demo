@@ -12,14 +12,17 @@ public class EarsystemSoapConfigProperties {
     private final String username;
     private final String password;
 
+    /** Endpoint URL to connect to the Web Service. Leave `null` for defaults from the WSDL. */
     public String getEndpointUrl() {
         return endpointUrl;
     }
 
+    /** Username to use to authenticate against the Web Service. */
     public String getUsername() {
         return username;
     }
 
+    /** Password to use to authenticate against the Web Service. */
     public String getPassword() {
         return password;
     }
