@@ -25,4 +25,6 @@ class QuantityReportsServiceTest {
         verify(mitteilungsServicePortMock).submitIstInput(new BigDecimal("99.4"), 3, 2012, 4, 123456, 987654, true);
         verifyNoMoreInteractions(mitteilungsServicePortMock);
     }
+
+    // TODO test Spring scheduling and retry mechanism
 }
