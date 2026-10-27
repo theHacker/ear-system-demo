@@ -38,6 +38,20 @@
   - We see that more correct solution when comparing the number of imports
     (introduced by this commit creating the subpackages).
 
+## No Service Layer
+
+- There is no service layer (for now)
+- Reasons
+  - Rather than fixed layers (just to adhere to some architecture chart), we only introduce layers as needed.
+  - The controller has little work to do.
+    It gives no benefit to have it there just for 1 or 2 lines to call the same named service.
+  - I have seen bad projects having a service layer with 100% boilerplate code just to proxy to the repository layer.
+    Such a service only makes sense, it we use that boundary.
+- Future
+  - If we see, the controller code gets more, or there are reason why we want to pull out a piece to test separately,
+    we can introduce such a layer at a later point in time.
+  - A service layer can be introduced on certain points only. E.&nbsp;g. proxying the SOAP web service only.
+
 ## Frontend Validation Framework
 
 - We did not check in depth the many different choices.

@@ -2,6 +2,7 @@ package biz.thehacker.demo.earsystem.controller;
 
 import biz.thehacker.demo.earsystem.model.QuantityReport;
 import biz.thehacker.demo.earsystem.repository.QuantityReportsRepository;
+import biz.thehacker.demo.earsystem.soap.mitteilung.MitteilungsServicePort;
 import org.intellij.lang.annotations.Language;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,7 @@ class QuantityReportsControllerTest {
     private MockMvc mockMvc;
 
     private QuantityReportsRepository repositoryMock;
+    private MitteilungsServicePort mitteilungsServicePortMock;
 
     @BeforeEach
     void setUp() {
@@ -41,9 +43,10 @@ class QuantityReportsControllerTest {
                 .startMocking();
 
         repositoryMock = mock();
+        mitteilungsServicePortMock = mock();
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new QuantityReportsController(repositoryMock))
+                .standaloneSetup(new QuantityReportsController(repositoryMock, mitteilungsServicePortMock))
                 .build();
     }
 
@@ -73,7 +76,7 @@ class QuantityReportsControllerTest {
     }
 
     @Test
-    void addQuantityReport_persists() throws Exception {
+    void addQuantityReport_persistsAndContactsWebService() throws Exception {
         @Language("json")
         String jsonRequested = """
             {
@@ -102,5 +105,8 @@ class QuantityReportsControllerTest {
 
         verify(repositoryMock).add(new QuantityReport(new BigDecimal("99.4"), TON, YearMonth.of(2012, APRIL), 123456, 987654, true));
         verifyNoMoreInteractions(repositoryMock);
+
+        verify(mitteilungsServicePortMock).submitIstInput(new BigDecimal("99.4"), 3, 2012, 4, 123456, 987654, true);
+        verifyNoMoreInteractions(mitteilungsServicePortMock);
     }
 }
