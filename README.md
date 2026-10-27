@@ -8,10 +8,24 @@ Used documentation:
 - https://www.stiftung-ear.de/technische-rahmenbedingungen/
 - https://test.ear-system.de/ear-soap/v2/MitteilungsService?wsdl
 
+## Installation
+
+Ensure you have the required dependencies ready (JVM and Node environment).
+
+Java:
+- Install JDK 21, e&nbsp;g. Amazon Corretto, and select in IntelliJ (Gradle settings -> Gradle JVM)
+
+Node:
+- Install `nvm`: See https://github.com/nvm-sh/nvm#installing-and-updating
+- Install Node 24: `nvm install 24 && nvm use 24`
+
+Bun:
+- Install `bun`: See https://bun.com/docs/installation
+- Install dependencies: `bun i`
+
 ## Running
 
 Backend and frontend run with a single command.
-Ensure you have the default dependencies ready (JVM and Node environments).
 
 ### Backend
 
