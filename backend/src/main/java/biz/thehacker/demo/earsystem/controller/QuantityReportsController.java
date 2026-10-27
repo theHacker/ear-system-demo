@@ -3,6 +3,7 @@ package biz.thehacker.demo.earsystem.controller;
 import biz.thehacker.demo.earsystem.model.GenericResponse;
 import biz.thehacker.demo.earsystem.model.QuantityReport;
 import biz.thehacker.demo.earsystem.repository.QuantityReportsRepository;
+import biz.thehacker.demo.earsystem.service.QuantityReportsService;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,14 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class QuantityReportsController {
 
     private final QuantityReportsRepository quantityReportsRepository;
+    private final QuantityReportsService quantityReportsService;
 
-    public QuantityReportsController(QuantityReportsRepository quantityReportsRepository) {
+    public QuantityReportsController(
+            QuantityReportsRepository quantityReportsRepository,
+            QuantityReportsService quantityReportsService
+    ) {
         this.quantityReportsRepository = quantityReportsRepository;
+        this.quantityReportsService = quantityReportsService;
     }
 
     @GetMapping
@@ -28,7 +34,7 @@ public class QuantityReportsController {
     @PostMapping
     public GenericResponse addQuantityReport(@RequestBody QuantityReport quantityReport) {
         quantityReportsRepository.add(quantityReport);
-        // TODO transmit via SOAP interface
+        quantityReportsService.submitNewReport(quantityReport);
 
         return GenericResponse.success();
     }
